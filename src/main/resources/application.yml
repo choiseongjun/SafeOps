@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: distributetest
+
+# Idempotency configuration
+idempotency:
+  storage: memory  # Options: redis, memory
+
+# Redis configuration (uncomment when using Redis)
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+#      password:
+#      timeout: 3000ms
+#      lettuce:
+#        pool:
+#          max-active: 8
+#          max-idle: 8
+#          min-idle: 0
+#          max-wait: -1ms
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.example.distributetest: DEBUG
