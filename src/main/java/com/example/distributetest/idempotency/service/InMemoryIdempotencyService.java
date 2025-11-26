@@ -3,13 +3,11 @@ package com.example.distributetest.idempotency.service;
 import com.example.distributetest.idempotency.model.IdempotencyKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Service
 public class InMemoryIdempotencyService implements IdempotencyService {
 
     private static final Logger log = LoggerFactory.getLogger(InMemoryIdempotencyService.class);

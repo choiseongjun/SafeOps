@@ -6,11 +6,10 @@ import com.example.distributetest.idempotency.service.IdempotencyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.junit.platform.commons.logging.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -22,9 +21,9 @@ import java.util.Optional;
 @Aspect
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class IdempotencyAspect {
 
-    private static final Logger log = LoggerFactory.getLogger(IdempotencyAspect.class);
     private static final String IDEMPOTENCY_KEY_HEADER = "Idempotency-Key";
     private final IdempotencyService idempotencyService;
     private final ObjectMapper objectMapper = new ObjectMapper();
