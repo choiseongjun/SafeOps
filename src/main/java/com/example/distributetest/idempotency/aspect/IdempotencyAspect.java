@@ -4,6 +4,7 @@ import com.example.distributetest.idempotency.annotation.Idempotent;
 import com.example.distributetest.idempotency.model.IdempotencyKey;
 import com.example.distributetest.idempotency.service.IdempotencyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,7 @@ public class IdempotencyAspect {
 
     private static final String IDEMPOTENCY_KEY_HEADER = "Idempotency-Key";
     private final IdempotencyService idempotencyService;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     @Around("@annotation(idempotent)")
     public Object handleIdempotency(ProceedingJoinPoint joinPoint, Idempotent idempotent) throws Throwable {
