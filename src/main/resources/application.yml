@@ -2,23 +2,51 @@ spring:
   application:
     name: distributetest
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/safeops
+    username: safeops
+    password: safeops123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/realms/safeops
+          jwk-set-uri: http://localhost:8180/realms/safeops/protocol/openid-connect/certs
+
+keycloak:
+  auth-server-url: http://localhost:8180
+  realm: safeops
+  resource: safeops-client
+  credentials:
+    secret: DNQHSy4VCRIgTU1OpNd4cZn3a8GmxNcw
+
 # Idempotency configuration
 idempotency:
-  storage: memory  # Options: redis, memory
-
-# Redis configuration (uncomment when using Redis)
-#  data:
-#    redis:
-#      host: localhost
-#      port: 6379
-#      password:
-#      timeout: 3000ms
-#      lettuce:
-#        pool:
-#          max-active: 8
-#          max-idle: 8
-#          min-idle: 0
-#          max-wait: -1ms
+  storage: redis  # Options: redis, memory
 
 server:
   port: 8080
